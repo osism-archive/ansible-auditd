@@ -15,8 +15,16 @@
   template:
     src: auditd.conf.j2
     dest: /etc/audit/audit.conf
-  notify:
-    - Restart auditd service
+  notify: Restart auditd service
+  become: true
+
+- name: Adjust auditd/audispd configurations
+  lineinfile:
+    dest: "{{ item.config }}"
+    regexp: '^#?{{ item.parameter }}\s*='
+    line: "{{ item.parameter }} = {{ item.value }}"
+  with_items: "{{ auditd_config }}"
+  notify: Restart auditd service
   become: true
 
 - name: Deploy rules for auditd
@@ -28,8 +36,7 @@
     mode: 0644
     backup: "{{ auditd_backup }}"
   loop: "{{ auditd_rules_files }}"
-  notify:
-    - Generate auditd rules
+  notify: Generate auditd rules
   become: true
 
 - name: Start/enable auditd service
@@ -51,6 +58,5 @@
     state: absent
   when: item not in auditd_rules_files
   loop: "{{ auditd_existing_rules.stdout_lines | default([]) }}"
-  notify:
-    - Generate auditd rules
+  notify: Generate auditd rules
   become: true
