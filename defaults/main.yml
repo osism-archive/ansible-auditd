@@ -4,3 +4,6 @@ auditd_backup: false
 auditd_rules_path: /etc/audit/rules.d
 auditd_rules_files:
   - 20-neo23x0.rules
+
+auditd_package_name: auditd
+auditd_service_name: auditd
