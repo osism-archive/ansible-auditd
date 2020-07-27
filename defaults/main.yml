@@ -1,5 +1,11 @@
 ---
 auditd_backup: false
+auditd_syslog: false
+
+auditd_config:
+  - parameter: active
+    value: "{{ 'yes' if auditd_syslog|bool else 'no' }}"
+    config: /etc/audisp/plugins.d/syslog.conf
 
 auditd_rules_path: /etc/audit/rules.d
 auditd_rules_files:
