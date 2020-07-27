@@ -1,7 +1,7 @@
 ---
 - name: Restart auditd service
   service:
-    name: auditd
+    name: "{{ auditd_service_name }}"
     state: restarted
   become: true
 
