@@ -6,4 +6,6 @@ auditd_rules_files:
   - 20-neo23x0.rules
 
 auditd_package_name: auditd
+audispd_plugins_package_name: audispd-plugins
+
 auditd_service_name: auditd

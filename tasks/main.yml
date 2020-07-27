@@ -5,6 +5,12 @@
     state: present
   become: true
 
+- name: Install audispd-plugins package
+  apt:
+    name: "{{ audispd_plugins_package_name }}"
+    state: present
+  become: true
+
 - name: Copy auditd.conf configuration files
   template:
     src: auditd.conf.j2
